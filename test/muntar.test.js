@@ -115,9 +115,9 @@ var cases = [
     {
         tarpath: 'corpus/tar1.tar',
         checks: [
-            { path: 'subdir1/', type: 'directory' },
-            { path: 'subdir1/test.txt', type: 'object' },
-            { path: 'test.txt', type: 'object' }
+            { path: 'subdir1/', type: 'application/x-json-stream; type=directory' },
+            { path: 'subdir1/test.txt', type: 'text/plain' },
+            { path: 'test.txt', type: 'text/plain' }
         ]
     },
     {
@@ -145,9 +145,7 @@ cases.forEach(function (c, i) {
                     var mpath = path.join(SUBDIR1, o.path);
                     self.client.info(mpath, function (err2, type) {
                         t.ifError(err2);
-                        if (o.type === 'directory') {
-                            t.equal(type.extension, o.type);
-                        }
+                        t.equal(type.type, o.type);
                         cb();
                     });
                 },
